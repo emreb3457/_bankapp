@@ -19,6 +19,6 @@ export class Transaction {
     @CreateDateColumn()
     createdAt: Date;
 
-    @Column({ default: 'success', type: 'enum', enum: ['success', 'failure'] })
+    @Column({ default: 'success', type: 'enum', enum: ['success', 'failed'] })
     status: string;
 }

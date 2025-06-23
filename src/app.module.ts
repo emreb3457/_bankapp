@@ -8,6 +8,7 @@ import { Person } from './modules/person/entities/person.entity';
 import { BankModule } from './modules/bank/bank.module';
 import { PersonModule } from './modules/person/person.module';
 import { TransactionModule } from './modules/transaction/transaction.module';
+import { AppService } from './app.service';
 
 @Module({
   imports: [
@@ -27,6 +28,6 @@ import { TransactionModule } from './modules/transaction/transaction.module';
     TransactionModule
   ],
   controllers: [],
-  providers: [],
+  providers: [AppService],
 })
 export class AppModule { }

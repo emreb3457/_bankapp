@@ -7,4 +7,7 @@ export class Person {
 
     @Column()
     name: string;
+
+    @Column({ nullable: true })
+    surname: string;
 }

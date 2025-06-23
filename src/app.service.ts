@@ -31,7 +31,7 @@ export class AppService implements OnModuleInit {
 
         const bankCount = await this.bankRepository.count();
         if (!bankCount) {
-            await this.bankRepository.save({ balance: 10000 });
+            await this.bankRepository.save({ name: "Emre Bank", balance: 10000 });
         }
     }
 }
