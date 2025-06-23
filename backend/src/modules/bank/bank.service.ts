@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { Bank } from './entities/bank.entity';
@@ -10,7 +10,12 @@ export class BankService {
         private bankRepository: Repository<Bank>,
     ) { }
 
-    findOne() {
-        return this.bankRepository.findOne({ where: { id: 1 } });
+    async findOne() {
+        const bank = await this.bankRepository.find({});
+
+        if (!bank?.[0]) {
+            throw new HttpException("Not found", HttpStatus.NOT_FOUND);
+        }
+        return bank[0];
     }
 }

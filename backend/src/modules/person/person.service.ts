@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { Person } from './entities/person.entity';
@@ -11,6 +11,11 @@ export class PersonService {
     ) { }
 
     async findAll() {
-        return await this.personRepository.find();
+        const person = await this.personRepository.find();
+
+        if (!person?.length) {
+            throw new HttpException("Not found", HttpStatus.NOT_FOUND);
+        }
+        return person;
     }
 }

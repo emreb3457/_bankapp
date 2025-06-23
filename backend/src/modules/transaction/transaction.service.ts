@@ -1,11 +1,10 @@
-import { Injectable } from '@nestjs/common';
+import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Repository } from 'typeorm';
-import { Transaction } from './entities/transaction.entity';
-import { CreateTransactionDto } from './dto/create-transaction.dto';
+import { DataSource, Repository } from 'typeorm';
 import { Bank } from '../bank/entities/bank.entity';
 import { Person } from '../person/entities/person.entity';
-import { DataSource } from 'typeorm';
+import { CreateTransactionDto } from './dto/create-transaction.dto';
+import { Transaction } from './entities/transaction.entity';
 
 export type TransactionResult = {
     personId: number;
@@ -22,8 +21,14 @@ export class TransactionService {
         private dataSource: DataSource,
     ) { }
 
-    findAll() {
-        return this.transactionRepository.find({ relations: ['person', 'bank'] });
+    async findAll() {
+        const transaction = await this.transactionRepository.find({ relations: ['person', 'bank'] });
+
+        if (!transaction?.length) {
+            throw new HttpException("Not found", HttpStatus.NOT_FOUND);
+        }
+        return transaction;
+
     }
 
     async processTransactions(transactions: CreateTransactionDto[]): Promise<TransactionResult[]> {
@@ -34,7 +39,7 @@ export class TransactionService {
             await queryRunner.startTransaction();
             try {
                 const person = await queryRunner.manager.findOne(Person, { where: { id: dto.personId } });
-                const bank = await queryRunner.manager.findOne(Bank, { where: { id: 1 } });
+                const [bank] = await queryRunner.manager.find(Bank);
                 if (!person || !bank) throw new Error('Person or Bank not found');
                 bank.balance = Number(bank.balance) + Number(dto.amount);
                 await queryRunner.manager.save(bank);

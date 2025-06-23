@@ -1,12 +1,10 @@
+import { BaseEntity } from 'src/common/entities/base.entity';
 import { Bank } from 'src/modules/bank/entities/bank.entity';
 import { Person } from 'src/modules/person/entities/person.entity';
-import { Column, CreateDateColumn, Entity, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
+import { Column, Entity, ManyToOne } from 'typeorm';
 
 @Entity()
-export class Transaction {
-    @PrimaryGeneratedColumn()
-    id: number;
-
+export class Transaction extends BaseEntity {
     @ManyToOne(() => Person)
     person: Person;
 
@@ -15,9 +13,6 @@ export class Transaction {
 
     @Column({ type: 'decimal', precision: 15, scale: 2 })
     amount: number;
-
-    @CreateDateColumn()
-    createdAt: Date;
 
     @Column({ default: 'success', type: 'enum', enum: ['success', 'failed'] })
     status: string;
