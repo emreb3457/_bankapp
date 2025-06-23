@@ -10,7 +10,7 @@ export class PersonService {
         private personRepository: Repository<Person>,
     ) { }
 
-    findAll() {
-        return this.personRepository.find();
+    async findAll() {
+        return await this.personRepository.find();
     }
 }

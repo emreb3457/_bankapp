@@ -9,4 +9,10 @@ export class BankController {
     findOne() {
         return this.bankService.findOne();
     }
+
+    @Get('balance')
+    async getBalance() {
+        const bank = await this.bankService.findOne();
+        return { balance: bank?.balance };
+    }
 }
