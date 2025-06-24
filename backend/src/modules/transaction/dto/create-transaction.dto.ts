@@ -18,7 +18,6 @@ export class CreateTransactionDto {
         minimum: 1
     })
     @IsInt()
-    @Min(1)
     amount: number;
 }
 

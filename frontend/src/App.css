@@ -1,38 +1,61 @@
-.App {
-  text-align: center;
+.panel-container {
+  max-width: 500px;
+  margin: 40px auto;
+  padding: 24px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  background: #fff;
 }
-
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+.balance {
+  color: #008080;
+  font-weight: bold;
 }
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+.section-title {
+  font-weight: bold;
+  margin-bottom: 8px;
+  margin-top: 16px;
 }
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+.person-row {
   display: flex;
-  flex-direction: column;
   align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+  margin-bottom: 8px;
+}
+.person-name {
+  margin-left: 8px;
+  min-width: 80px;
+}
+.amount-input {
+  margin-left: 12px;
+  width: 90px;
+  padding: 2px 6px;
+}
+.send-btn {
+  margin-top: 16px;
+  width: 100%;
+  padding: 8px 0;
+  background: #008080;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  font-size: 16px;
+  cursor: pointer;
+}
+.send-btn:disabled {
+  background: #ccc;
+  cursor: not-allowed;
+}
+.result-success {
+  color: #008000;
+}
+.result-failed {
+  color: #c00;
 }
 
-.App-link {
-  color: #61dafb;
-}
-
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
-}
+.scroll {
+  max-height: 220px;
+  overflow-y: auto;
+  border: 1px solid #eee;
+  border-radius: 4px;
+  padding: 8px;
+  background: #fafafa;
+} 
